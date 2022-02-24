@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(myUserDetailService);
     }
 
+    /*
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable()
@@ -47,6 +48,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+     */
+
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Bean
